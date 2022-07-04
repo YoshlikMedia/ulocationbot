@@ -5,6 +5,5 @@ texts = {
     "change_language": "🇷🇺 Выберите язык:\n"
                        "🇺🇿 Tilni tanlang:",
 
-    "choose_city": "Выберите город"
-
+    "choose_city": "Shaharni tanlang",
 }
