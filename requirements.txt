@@ -1,2 +1,4 @@
+wheel
 environs~=9.5.0
 aiogram~=2.20
+mongo
