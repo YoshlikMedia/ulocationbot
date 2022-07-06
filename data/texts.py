@@ -6,4 +6,8 @@ texts = {
                        "🇺🇿 Tilni tanlang:",
 
     "choose_city": "Shaharni tanlang",
+
+    "get_full_name": "Ism Familiyangizni kiriting",
+
+    "get_phone_number": "Telefon raqamini yuborish",
 }
