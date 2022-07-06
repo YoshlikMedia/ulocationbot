@@ -17,13 +17,10 @@ class Localization(I18nMiddleware):
         """
         user: types.User = types.User.get_current()
 
-        # if LANG_STORAGE.get(user.id) is None:
-        #     LANG_STORAGE[user.id] = "uz"
-
         if LANG_STORAGE.find_one({"user_id": user.id}) is None:
             LANG_STORAGE.insert_one({"user_id": user.id, "lang": "uz"})
 
         *_, data = args
-        # language = data['locale'] = LANG_STORAGE[user.id]
         language = data['locale'] = LANG_STORAGE.find_one({"user_id": user.id}).get('lang', 'uz')
+        print(language)
         return language
