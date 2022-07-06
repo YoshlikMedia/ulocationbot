@@ -8,5 +8,6 @@ storage = MongoStorage()
 database = client['ulocationbot']
 
 LANG_STORAGE = database['lang_storage']
-
+USERS = database['users']
 CITY = database['city']
+
