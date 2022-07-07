@@ -15,3 +15,11 @@ BASE_DIR = Path(__file__).parent
 LOCALES_DIR = BASE_DIR / 'locales'
 
 LANGUAGES = ['uz', 'ru']
+
+CITIES = {
+    "bukhara": "Buxoro",
+    "tashkent": "Tashkent",
+    "samarkand": "Samarkand"
+}
+
+print('bukhara' in CITIES.keys())
