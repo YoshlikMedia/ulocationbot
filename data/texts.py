@@ -10,4 +10,8 @@ texts = {
     "get_full_name": "Ism Familiyangizni kiriting",
 
     "get_phone_number": "Telefon raqamini yuborish",
+
+    "choose_categories": "Kategoriyalarni tanlang",
+
+    "choose_category": "{category}ni tanlang."
 }
