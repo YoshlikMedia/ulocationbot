@@ -22,5 +22,4 @@ class Localization(I18nMiddleware):
 
         *_, data = args
         language = data['locale'] = LANG_STORAGE.find_one({"user_id": user.id}).get('lang', 'uz')
-        print(language)
         return language

@@ -4,6 +4,7 @@ from aiogram.dispatcher.filters import Command
 from data.config import LANGUAGES
 from data.texts import texts
 from keyboards.default.keyboard import get_number
+from keyboards.inline.cities_button import cities_button
 from keyboards.inline.lang_keyboard import choose_lang
 from loader import dp
 from middlewares import i18n
@@ -13,7 +14,7 @@ from utils.db_api.mongo import LANG_STORAGE, USERS
 _ = i18n.lazy_gettext
 
 
-@dp.message_handler(Command('lang'))
+@dp.message_handler(Command('lang'), state="*")
 async def cmd_lang(message: types.Message):
     await message.answer(text=texts['change_language'], reply_markup=choose_lang)
 
@@ -33,4 +34,4 @@ async def set_lang(call: types.CallbackQuery):
         await Form.GetPhone.set()
         return
 
-    await call.message.edit_text(text=_(texts['choose_city'], locale=call.data))
+    await call.message.edit_text(text=_(texts['choose_city'], locale=call.data), reply_markup=await cities_button())
