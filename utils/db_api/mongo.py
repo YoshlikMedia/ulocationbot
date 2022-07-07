@@ -1,5 +1,4 @@
 from pymongo import MongoClient
-from motor.motor_asyncio import AsyncIOMotorClient
 from aiogram.contrib.fsm_storage.mongo import MongoStorage
 from data.config import IP
 
