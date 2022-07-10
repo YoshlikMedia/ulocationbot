@@ -15,4 +15,17 @@ get_number = ReplyKeyboardMarkup(
         ]
     ],
     resize_keyboard=True,
-    one_time_keyboard=True)
+    one_time_keyboard=True
+)
+
+rating_keyboard = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton("⭐️⭐️⭐️"),
+            KeyboardButton("⭐️⭐️"),
+            KeyboardButton("⭐️")
+        ],
+    ],
+    resize_keyboard=True,
+    one_time_keyboard=True
+)

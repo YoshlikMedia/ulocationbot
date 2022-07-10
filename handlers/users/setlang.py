@@ -1,4 +1,5 @@
 from aiogram import types
+from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Command
 
 from data.config import LANGUAGES
@@ -15,7 +16,8 @@ _ = i18n.lazy_gettext
 
 
 @dp.message_handler(Command('lang'), state="*")
-async def cmd_lang(message: types.Message):
+async def cmd_lang(message: types.Message, state: FSMContext):
+    await state.finish()
     await message.answer(text=texts['change_language'], reply_markup=choose_lang)
 
 

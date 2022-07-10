@@ -7,7 +7,6 @@ from keyboards.default.keyboard import get_number
 from keyboards.inline.cities_button import cities_button
 from keyboards.inline.lang_keyboard import choose_lang
 from loader import dp
-
 from middlewares import i18n
 from states.States import Form
 from utils.db_api.mongo import USERS
@@ -16,7 +15,8 @@ _ = i18n.lazy_gettext
 
 
 @dp.message_handler(CommandStart(), state="*")
-async def cmd_start(message: types.Message):
+async def cmd_start(message: types.Message, state: FSMContext):
+    await state.finish()
     await message.answer(text=texts['welcome'])
 
     if USERS.find_one({'user_id': message.from_user.id}) is None:

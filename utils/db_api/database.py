@@ -17,8 +17,8 @@ class Reserve(BaseModel):
 
 
 class Location(BaseModel):
-    longitude: float
     latitude: float
+    longitude: float
 
 
 class CityCategories(BaseModel):
@@ -69,6 +69,23 @@ class City:
         """
         return database[city_name].find_one({'_id': ObjectId(_id)})
 
+    def add_rating(self, city_name, _id: str, rating: int):
+        """
+        Add rating to collection
+        """
+        old_rate = self.get_info_with_id(city_name, _id)['rating']
+        database[city_name].update_one(
+            {
+                '_id': ObjectId(_id)
+            },
+            {
+                '$set':
+                    {
+                        'rating': old_rate + rating
+                    }
+            }
+        )
+
 
 class Categories:
     def add_category(self, category_name, category_info):
@@ -77,10 +94,11 @@ class Categories:
         """
         category_collection = database.categories
         category_collection.update_one({
-            category_name: category_info
+            'category_name': category_name
         }, {
             '$set': {
-                category_name: category_info
+                'category_name': category_name,
+                'category_info': category_info
             }
         }, upsert=True)
 
@@ -90,8 +108,8 @@ class Categories:
         """
         category_collection = database.categories
         for category in category_collection.find():
-            if category_name in category:
-                return category[category_name]
+            if category['category_name'] == category_name:
+                return category['category_info']
 
     def get_all_categories(self):
         """

@@ -21,5 +21,3 @@ CITIES = {
     "tashkent": "Tashkent",
     "samarkand": "Samarkand"
 }
-
-print('bukhara' in CITIES.keys())
