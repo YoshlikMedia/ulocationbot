@@ -11,7 +11,7 @@ from utils.db_api.database import Categories
 _ = i18n.lazy_gettext
 
 
-@dp.message_handler(Command('addcategory'))
+@dp.message_handler(Command('addcategory'), state='*')
 async def add_category(msg: types.Message, state: FSMContext):
     await state.finish()
     await msg.answer(_(texts['get_category_name']))
