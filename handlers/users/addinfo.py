@@ -73,10 +73,10 @@ async def get_location(msg: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['location'] = dict(msg.location)
     await msg.answer(_(texts['get_rating']), reply_markup=rating_keyboard)
-    await Form.GetRating.set()
+    await Form.GetRatingAdd.set()
 
 
-@dp.message_handler(state=Form.GetRating)
+@dp.message_handler(state=Form.GetRatingAdd)
 async def get_rating(msg: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['rating'] = len(msg.text) // 2

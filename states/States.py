@@ -9,6 +9,7 @@ class Form(StatesGroup):
     # Categories states
     GetCategory = State()
     GetInfo = State()
+    GetRating = State()
 
     # Adding Information states
     GetCategoryAdd = State()
@@ -17,9 +18,8 @@ class Form(StatesGroup):
     GetImage = State()
     GetInfoAdd = State()
     GetLocation = State()
-    GetRating = State()
+    GetRatingAdd = State()
 
     # Adding new category states
     GetCategoryName = State()
     GetCategoryDescription = State()
-
