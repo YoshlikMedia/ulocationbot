@@ -1,6 +1,7 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from data.config import CITIES
+from data.texts import texts
 from middlewares import i18n
 from utils.db_api.database import Categories
 from utils.db_api.mongo import CATEGORIES
@@ -25,11 +26,14 @@ async def categorie_button(categories=None):
             getName = category.get('category_name')
             getInfo = category.get('category_info')
             markup.add(InlineKeyboardButton(text=getInfo, callback_data=getName))
+        markup.add(InlineKeyboardButton(text=_(texts['back_button']), callback_data='cancel'))
         return markup
 
     for category in set(categories):
         getInfo = CATEGORIES.find_one({'category_name': category}).get('category_info')
         markup.add(InlineKeyboardButton(text=getInfo, callback_data=category))
+
+    markup.add(InlineKeyboardButton(text=_(texts['back_button']), callback_data='cancel'))
     return markup
 
 
@@ -38,4 +42,5 @@ async def branch_categories_button(categories):
     for category in categories:
         _id, name = category['_id'], category['info']['address']
         markup.add(InlineKeyboardButton(text=name, callback_data=str(_id)))
+    markup.add(InlineKeyboardButton(text=_(texts['back_button']), callback_data='cancel'))
     return markup

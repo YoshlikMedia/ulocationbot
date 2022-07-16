@@ -68,7 +68,7 @@ async def get_info(msg: types.Message, state: FSMContext):
     await Form.GetLocation.set()
 
 
-@dp.message_handler(state=Form.GetLocation, content_types=types.ContentType.LOCATION)
+@dp.message_handler(state=Form.GetLocation, content_types=[types.ContentType.LOCATION, types.ContentType.VENUE])
 async def get_location(msg: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['location'] = dict(msg.location)
@@ -80,7 +80,6 @@ async def get_location(msg: types.Message, state: FSMContext):
 async def get_rating(msg: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['rating'] = len(msg.text) // 2
-        print(data)
         city = City()
         city.adding_base_info(
             data['city'],

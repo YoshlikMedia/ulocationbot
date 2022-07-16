@@ -38,5 +38,9 @@ texts = {
 
     "thanks_cat": "Categoriya qo'shildi. Yangi categoriya qo'shish uchun /addcategory tugmasini bosing.",
 
-    "thanks_rate": "Bahoyingiz uchun tashakkur!"
+    "thanks_rate": "Bahoyingiz uchun tashakkur!",
+
+    "rating_msg": "💫 Reyting: {rating}",
+
+    'back_button': '🔙 Orqaga qaytish',
 }

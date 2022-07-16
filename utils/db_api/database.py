@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import List
 
 from bson import ObjectId
 
@@ -73,7 +73,7 @@ class City:
         """
         Add rating to collection
         """
-        old_rate = self.get_info_with_id(city_name, _id)['rating']
+        old_rate = self.get_info_with_id(city_name, _id).get('rating', 0)
         database[city_name].update_one(
             {
                 '_id': ObjectId(_id)
@@ -85,6 +85,12 @@ class City:
                     }
             }
         )
+
+    def get_rating(self, city_name: str, _id: str):
+        """
+        Get rating from collection
+        """
+        return database[city_name].find_one({'_id': ObjectId(_id)}).get('rating', 0)
 
 
 class Categories:
