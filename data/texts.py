@@ -19,7 +19,9 @@ texts = {
 
     "get_image": "Manzil rasmini yuklang.",
 
-    "get_info": "Manzil ma'lumotlarini yuklang.",
+    "get_info_uz": "Manzil ma'lumotlarini yuklang. (UZ)",
+
+    "get_info_ru": "Manzil ma'lumotlarini yuklang. (RU)",
 
     "get_location": "Lokatsiya yuboring.",
 

@@ -6,9 +6,14 @@ from utils.db_api.mongo import database
 from pydantic import BaseModel
 
 
+class Caption(BaseModel):
+    uz: str
+    ru: str
+
+
 class ImagePost(BaseModel):
     image_url: List[str]
-    caption: str = None
+    caption: Caption
 
 
 class Reserve(BaseModel):

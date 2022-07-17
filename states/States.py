@@ -16,7 +16,8 @@ class Form(StatesGroup):
     GetCategoryAddInfo = State()
     GetCaption = State()
     GetImage = State()
-    GetInfoAdd = State()
+    GetInfoUz = State()
+    GetInfoRu = State()
     GetLocation = State()
     GetRatingAdd = State()
 

@@ -56,14 +56,22 @@ async def get_caption(msg: types.Message, state: FSMContext):
 async def get_image(msg: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['image'] = msg.photo[0].file_id
-    await msg.answer(_(texts['get_info']))
-    await Form.GetInfoAdd.set()
+    await msg.answer(_(texts['get_info_uz']))
+    await Form.GetInfoUz.set()
 
 
-@dp.message_handler(state=Form.GetInfoAdd)
+@dp.message_handler(state=Form.GetInfoUz)
 async def get_info(msg: types.Message, state: FSMContext):
     async with state.proxy() as data:
-        data['info'] = msg.text
+        data['info_uz'] = msg.text
+    await msg.answer(_(texts['get_info_ru']))
+    await Form.GetInfoRu.set()
+
+
+@dp.message_handler(state=Form.GetInfoRu)
+async def get_info(msg: types.Message, state: FSMContext):
+    async with state.proxy() as data:
+        data['info_ru'] = msg.text
     await msg.answer(_(texts['get_location']))
     await Form.GetLocation.set()
 
@@ -71,16 +79,8 @@ async def get_info(msg: types.Message, state: FSMContext):
 @dp.message_handler(state=Form.GetLocation, content_types=[types.ContentType.LOCATION, types.ContentType.VENUE])
 async def get_location(msg: types.Message, state: FSMContext):
     async with state.proxy() as data:
-        data['location'] = dict(msg.location)
-    await msg.answer(_(texts['get_rating']), reply_markup=rating_keyboard)
-    await Form.GetRatingAdd.set()
-
-
-@dp.message_handler(state=Form.GetRatingAdd)
-async def get_rating(msg: types.Message, state: FSMContext):
-    async with state.proxy() as data:
-        data['rating'] = len(msg.text) // 2
         city = City()
+        data['location'] = dict(msg.location)
         city.adding_base_info(
             data['city'],
             data['category'],
@@ -88,13 +88,16 @@ async def get_rating(msg: types.Message, state: FSMContext):
                 'address': data['caption'],
                 'image': {
                     "image_url": data['image'],
-                    "caption": data['info']
+                    "caption": {
+                        "uz": data['info_uz'],
+                        "ru": data['info_ru']
+                    }
                 },
                 "location": {
                     "latitude": data.get('location').get('latitude'),
                     "longitude": data.get('location').get('longitude')
                 },
-                "rating": data['rating'],
+                "rating": 0,
             }
         )
 

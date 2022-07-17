@@ -10,6 +10,7 @@ from loader import dp
 from middlewares import i18n
 from states.States import Form
 from utils.db_api.database import City
+from utils.db_api.mongo import LANG_STORAGE
 
 _ = i18n.lazy_gettext
 
@@ -51,7 +52,6 @@ async def city_categories(call: types.CallbackQuery, state: FSMContext):
 async def cancel_city_categories(call: types.CallbackQuery, state: FSMContext):
     async with state.proxy() as data:
         city = City()
-        print(data)
         await call.message.edit_text(
             text=_(texts['choose_categories']),
             reply_markup=await categorie_button(
@@ -68,10 +68,11 @@ async def city_categories(call: types.CallbackQuery, state: FSMContext):
         info = city.get_info_with_id(data['city'], call.data).get('info')
         data['_id'] = city.get_info_with_id(data['city'], call.data).get('_id')
         image = info.get('image')
+        caption = image.get('caption').get(LANG_STORAGE.find_one({"user_id": call.from_user.id}).get('lang', 'uz'))
         loc = info.get('location')
         rating = city.get_rating(data['city'], data['_id'])
 
-        await call.message.answer_photo(image.get('image_url'), image.get('caption'))
+        await call.message.answer_photo(image.get('image_url'), caption)
         await call.message.answer_location(longitude=loc.get('longitude'), latitude=loc.get('latitude'))
         await call.message.answer(_(texts['rating_msg'].format(rating=rating)))
         await call.message.answer(_(texts['get_rating']), reply_markup=rating_keyboard)
