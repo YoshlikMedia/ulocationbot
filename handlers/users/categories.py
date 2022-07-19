@@ -80,6 +80,19 @@ async def city_categories(call: types.CallbackQuery, state: FSMContext):
         await Form.GetRating.set()
 
 
+@dp.callback_query_handler(lambda call: call.data == 'cancel', state=Form.GetRating)
+async def cancel_city_categories(call: types.CallbackQuery, state: FSMContext):
+    async with state.proxy() as data:
+        city = City()
+        await call.message.answer(
+            text=_(texts['choose_categories']),
+            reply_markup=await categorie_button(
+                city.get_category_name(data['city'])
+            )
+        )
+    await Form.GetCategory.set()
+
+
 @dp.message_handler(state=Form.GetRating)
 async def get_rating(msg: types.Message, state: FSMContext):
     async with state.proxy() as data:
@@ -87,3 +100,5 @@ async def get_rating(msg: types.Message, state: FSMContext):
         city.add_rating(data['city'], data['_id'], len(msg.text) // 2)
 
     await msg.answer(_(texts['thanks_rate']))
+    await state.finish()
+    await msg.answer(text=_(texts['choose_city']), reply_markup=await cities_button())

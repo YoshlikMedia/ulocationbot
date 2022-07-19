@@ -51,7 +51,7 @@ class City:
         city_collection = self.create_city_collection(city_name)
         city_collection.insert_one({
             'category': category,
-            'info': info
+            **info
         })
 
     def get_category_name(self, city_name):
@@ -79,17 +79,7 @@ class City:
         Add rating to collection
         """
         old_rate = self.get_info_with_id(city_name, _id).get('rating', 0)
-        database[city_name].update_one(
-            {
-                '_id': ObjectId(_id)
-            },
-            {
-                '$set':
-                    {
-                        'rating': old_rate + rating
-                    }
-            }
-        )
+        database[city_name].update_one({'_id': ObjectId(_id)}, {'$set': {'rating': old_rate + rating}})
 
     def get_rating(self, city_name: str, _id: str):
         """
@@ -132,17 +122,4 @@ class Categories:
 
 
 if __name__ == "__main__":
-    city1 = City()
-    category1 = Categories()
-
-    category1.add_category('cafe', 'Coffe ☕️')
-
-    city1.adding_base_info('bukhara', 'cafe', {
-        'address': 'Black Bear Coffee',
-        'image': {
-            'image_url': [
-                'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'],
-            'caption': 'Cafe'
-        },
-        'info': 'Cafe in Tashkent',
-    })
+    pass
